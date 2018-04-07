@@ -20,11 +20,26 @@ def matchTime($x):
 def tocsv($x):
     $x
     |.eventTypes[0].eventNodes
+    | (now | todate) as $now
 
     # CSV headers
     |[
-      ".eventId",
-      ".event.eventName"
+      "eventId",
+      "eventName",
+      "player1 id",
+      "player2 id",
+      "player1 name",
+      "player2 name",
+      "player1 back price",
+      "player1 back size",
+      "player1 lay price",
+      "player1 lay size",
+      "player2 back price",
+      "player2 back size",
+      "player2 lay price",
+      "player2 lay size",
+      "match time",
+      "scrape time"
      ],
 
      # Variable assignments
@@ -45,7 +60,8 @@ def tocsv($x):
       runnerName($player2),
       firstBackLay($player1),
       firstBackLay($player2),
-      matchTime(.)
+      matchTime(.),
+      $now
      ])[] | @csv
     ;
 
